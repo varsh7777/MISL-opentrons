@@ -1,8 +1,5 @@
 from opentrons import protocol_api
 
-# i figured it would be easier to just copy+paste
-# the volumes you need each time, but i can change
-# this in the future
 source_volumes = {40, 0, 12, 34, 18, 56, 17, 14, 42, 12, 34, 18,
                   41, 23, 23, 30, 23, 23, 23, 23, 22, 16, 23, 23,
                   56, 12, 12, 34, 12, 34, 12, 34, 18, 18, 12, 34,
@@ -37,6 +34,7 @@ def run(protocol: protocol_api.ProtocolContext):
 
     # we need to start picking up tips from the end so that we only pick up
     # one tip at a time with our multi-channel gen2 pipette
+    
     tiprack_reverse = ['H12', 'H11', 'H10', 'H9', 'H8', 'H7', 'H6', 'H5', 'H4',
                        'H3', 'H2', 'H1',
                        'G12', 'G11', 'G10', 'G9', 'G8', 'G7', 'G6', 'G5', 'G4',
@@ -66,12 +64,12 @@ def run(protocol: protocol_api.ProtocolContext):
         if (volume > 20):
             pipette1.pick_up_tip(tiprack1[tiprack_reverse[i]])
             pipette1.aspirate(volume, source_plate[tiprack_reverse[95-i]])
-            pipette1.dispense(volume+5, dispense_plate[tiprack_reverse[95-i]])
+            pipette1.blow_out(dispense_plate[tiprack_reverse[95-i]])
             pipette1.drop_tip()
         else:
             pipette2.pick_up_tip(tiprack2[tiprack_reverse[i]])
             pipette2.aspirate(volume, source_plate[tiprack_reverse[95-i]])
-            pipette2.dispense(volume+5, dispense_plate[tiprack_reverse[95-i]])
+            pipette2.blow_out(dispense_plate[tiprack_reverse[95-i]])
             pipette2.drop_tip()
         i = i + 1
 
@@ -83,13 +81,11 @@ def run(protocol: protocol_api.ProtocolContext):
             pipette1.pick_up_tip(tiprack1[tiprack_reverse[i]])
             pipette1.aspirate(150-volume,
                               water_plate[tiprack_reverse[95-i]])
-            pipette1.dispense(150-volume+5,
-                              dispense_plate[tiprack_reverse[95-i]])
+            pipette1.blow_out(dispense_plate[tiprack_reverse[95-i]])
             pipette1.drop_tip()
         else:
-            pipette2.pick_up_tip(tiprack1[tiprack_reverse[i]])
+            pipette2.pick_up_tip(tiprack2[tiprack_reverse[i]])
             pipette2.aspirate(150-volume,
                               water_plate[tiprack_reverse[95-i]])
-            pipette2.dispense(150-volume+5,
-                              dispense_plate[tiprack_reverse[95-i]])
+            pipette2.blow_out(dispense_plate[tiprack_reverse[95-i]])
             pipette2.drop_tip()
