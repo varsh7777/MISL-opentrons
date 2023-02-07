@@ -22,9 +22,9 @@ def run(protocol: protocol_api.ProtocolContext):
     mag_plate = mag_mod.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
     tiprack1 = protocol.load_labware('opentrons_96_tiprack_300ul', 6)
     tiprack2 = protocol.load_labware('opentrons_96_filtertiprack_20ul', 7)
-    pipette1 = protocol.load_instrument('p300_multi_gen2', 'left',
+    pipette1 = protocol.load_instrument('p300_multi_gen2', 'right',
                                         tip_racks=[tiprack1])
-    pipette2 = protocol.load_instrument('p20_multi_gen2', 'right',
+    pipette2 = protocol.load_instrument('p20_multi_gen2', 'left',
                                         tip_racks=[tiprack2])
 
     # the first column contains beads, the third column contains ethanol,
