@@ -10,13 +10,13 @@ metadata = {
 
 
 def run(protocol: protocol_api.ProtocolContext):
-    num_of_columns = int(input("What is the number of columns? "))
-    initial_sample_volume = int(input("What is the initial sample volume? "))
-    final_sample_volume = int(input("What is the desired final sample volume? "))
-    bead_ratio = int(input("Bead ratio? "))
-    etoh_wash_volume = int(input("EtOH wash volume? "))
-    incubation_time = int(input("Incubation time? "))
-    dry_time = int(input("Dry time? "))
+    num_of_columns = 1 #int(input("What is the number of columns? "))
+    initial_sample_volume = 50 #int(input("What is the initial sample volume? "))
+    final_sample_volume = 30 #int(input("What is the desired final sample volume? "))
+    bead_ratio = 2 #int(input("Bead ratio? "))
+    etoh_wash_volume = 180 #int(input("EtOH wash volume? "))
+    incubation_time = 5 #int(input("Incubation time? "))
+    dry_time = 3 #int(input("Dry time? "))
 
     mag_mod = protocol.load_module('magnetic module gen2', 4)
     mag_plate = mag_mod.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
