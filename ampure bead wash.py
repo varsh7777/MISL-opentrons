@@ -11,7 +11,7 @@ metadata = {
 
 
 def run(protocol: protocol_api.ProtocolContext):
-    data = pd.read_csv("Ampure Bead Wash - Sheet1.csv")
+    data = pd.read_csv("/Users/mislcomputer/Downloads/Ampure Bead Wash - Sheet1.csv")
     num_of_columns = data[1]['num of columns'] #int(input("What is the number of columns? "))
     initial_sample_volume = data[1]['initial sample volume'] #int(input("What is the initial sample volume? "))
     final_sample_volume = data[1]['final sample volume'] #int(input("What is the desired final sample volume? "))
