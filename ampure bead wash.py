@@ -1,4 +1,5 @@
 from opentrons import protocol_api
+import pandas as pd
 
 metadata = {
     'apiLevel': '2.13',
@@ -10,13 +11,14 @@ metadata = {
 
 
 def run(protocol: protocol_api.ProtocolContext):
-    num_of_columns = 1 #int(input("What is the number of columns? "))
-    initial_sample_volume = 50 #int(input("What is the initial sample volume? "))
-    final_sample_volume = 30 #int(input("What is the desired final sample volume? "))
-    bead_ratio = 2 #int(input("Bead ratio? "))
-    etoh_wash_volume = 180 #int(input("EtOH wash volume? "))
-    incubation_time = 5 #int(input("Incubation time? "))
-    dry_time = 3 #int(input("Dry time? "))
+    data = pd.read_csv("Ampure Bead Wash - Sheet1.csv")
+    num_of_columns = data[1]['num of columns'] #int(input("What is the number of columns? "))
+    initial_sample_volume = data[1]['initial sample volume'] #int(input("What is the initial sample volume? "))
+    final_sample_volume = data[1]['final sample volume'] #int(input("What is the desired final sample volume? "))
+    bead_ratio = data[1]['bead ratio'] #int(input("Bead ratio? "))
+    etoh_wash_volume = data[1]['etoh wash volume'] #int(input("EtOH wash volume? "))
+    incubation_time = data[1]['incubation time'] #int(input("Incubation time? "))
+    dry_time = data[1]['dry time'] #int(input("Dry time? "))
 
     mag_mod = protocol.load_module('magnetic module gen2', 4)
     mag_plate = mag_mod.load_labware('nest_96_wellplate_100ul_pcr_full_skirt')
@@ -126,14 +128,14 @@ def run(protocol: protocol_api.ProtocolContext):
         if (supern_vol_fin > 20):
             pipette1.pick_up_tip()
             pipette1.aspirate(supern_vol_fin, mag_plate['A' + str(i + 1)],
-                              rate=0.01)
+                              rate=0.001)
             protocol.delay(seconds=2)
             pipette1.blow_out(mag_plate['A' + str(i + num_of_columns + 1)])
             pipette1.drop_tip()
         else:
             pipette2.pick_up_tip()
             pipette2.aspirate(supern_vol_fin, mag_plate['A' + str(i + 1)],
-                              rate=0.01)
+                              rate=0.001)
             protocol.delay(seconds=2)
             pipette2.blow_out(mag_plate['A' + str(i + num_of_columns + 1)])
             pipette2.drop_tip()
